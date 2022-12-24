@@ -1,0 +1,45 @@
+{
+  "TempHumi": {
+    "Range": 0,
+    "Status": 0,
+    "Event": 1,
+    "SenVal": 30437
+  },
+  "Accelerometer": {
+    "X-Axis": {
+      "SenEvent": 0,
+      "OAVelocity": 6,
+      "Peakmg": 5,
+      "RMSmg": 4,
+      "Kurtosis": -5,
+      "CrestFactor": 676,
+      "Skewness": 0,
+      "Deviation": 0,
+      "Peak-to-Peak Displacement": 2
+    },
+    "Y-Axis": {
+      "SenEvent": 0,
+      "OAVelocity": 5,
+      "Peakmg": 4,
+      "RMSmg": 3,
+      "Kurtosis": 153,
+      "CrestFactor": 968,
+      "Skewness": -41,
+      "Deviation": 0,
+      "Peak-to-Peak Displacement": 1
+    },
+    "Z-Axis": {
+      "SenEvent": 0,
+      "OAVelocity": 5,
+      "Peakmg": 5,
+      "RMSmg": 4,
+      "Kurtosis": 10,
+      "CrestFactor": 638,
+      "Skewness": 0,
+      "Deviation": 0,
+      "Peak-to-Peak Displacement": 1
+    },
+    "LogIndex": 9236,
+    "Time": 1670694796
+  }
+}
