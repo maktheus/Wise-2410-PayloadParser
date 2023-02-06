@@ -18,16 +18,17 @@ function saveStringAsJson(str) {
 
 function main(){
     //get a entrada do usuario via console
-    const input = readlineSync.question("Insera a entrada:\n");
+
+    const input = process.argv[2]
     //chama a funcao decode
 
     var output = decodeUplink(input);
     //mostra o tipo de resultado
     
-    console.log(typeof output);
+    console.log( output);
 
     //cria um arquivo json com o resultado
-    saveStringAsJson(output);
+    // saveStringAsJson(output);
 }
 
 main()

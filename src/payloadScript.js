@@ -150,7 +150,7 @@ exports.decodeUplink = function(input) {
     }
 
     if (receivedString == undefined) {
-        console.log("Error: No data is received");
+        //console.log("Error: No data is received");
         msg.payload = "Error: No data is received";
         return msg;
     }
@@ -211,7 +211,7 @@ exports.decodeUplink = function(input) {
     if (!bIsRunNodeRed) {
         var node = function () { };
         node.warn = function (arg) {
-            console.log(arg);
+            //console.log(arg);
         };
         node.error = function (arg) {
             console.error(arg);
@@ -992,7 +992,7 @@ exports.decodeUplink = function(input) {
                 parsePayLoad(index);
                 return;
             } else {
-                console.log("Finish DI Parsing.");
+                //console.log("Finish DI Parsing.");
                 return;
             }
         }
@@ -1005,7 +1005,7 @@ exports.decodeUplink = function(input) {
                 parsePayLoad(index);
                 return;
             } else {
-                console.log("Finish DO Parsing.");
+                //console.log("Finish DO Parsing.");
                 return;
             }
         }
@@ -1018,7 +1018,7 @@ exports.decodeUplink = function(input) {
                 parsePayLoad(index);
                 return;
             } else {
-                console.log("Finish AI Parsing.");
+                //console.log("Finish AI Parsing.");
                 return;
             }
         }
@@ -1031,7 +1031,7 @@ exports.decodeUplink = function(input) {
                 parsePayLoad(index);
                 return;
             } else {
-                console.log("Finish Sensor Parsing.");
+                //console.log("Finish Sensor Parsing.");
                 return;
             }
         }
@@ -1044,7 +1044,7 @@ exports.decodeUplink = function(input) {
                 parsePayLoad(index);
                 return;
             } else {
-                console.log("Finish Device Parsing.");
+                //console.log("Finish Device Parsing.");
                 return;
             }
         }
@@ -1057,7 +1057,7 @@ exports.decodeUplink = function(input) {
                 parsePayLoad(index);
                 return;
             } else {
-                console.log("Finish Coil Parsing.");
+                //console.log("Finish Coil Parsing.");
                 return;
             }
         }
@@ -1070,7 +1070,7 @@ exports.decodeUplink = function(input) {
                 parsePayLoad(index);
                 return;
             } else {
-                console.log("Finish Register Parsing.");
+                //console.log("Finish Register Parsing.");
                 return;
             }
         }
@@ -1138,11 +1138,11 @@ exports.decodeUplink = function(input) {
             return msg;
         }
 
-        console.log("Parse Header");
+        //console.log("Parse Header");
 
         //parse hex string to array
         arrLength = arrLength / 2;
-        console.log("Payload length: " + arrLength);
+        //console.log("Payload length: " + arrLength);
 
         for (i = 0; i < arrLength; i++) {
             hexArr.push(parseInt(receivedString.substring(i * 2, i * 2 + 2), 16)); //parse hex
@@ -1176,12 +1176,12 @@ exports.decodeUplink = function(input) {
             hexArr = payloadStorage.payload.concat(hexArr.slice(2, hexArr.length));
 
             if (!checkPayloadLengthAndSetStorage(hexArr, currentSeq)) {
-                console.log("Need Packet Reassemble.");
+                //console.log("Need Packet Reassemble.");
                 return null;
             }
         } else {
             if (!checkPayloadLengthAndSetStorage(hexArr, null)) {
-                console.log("Need Packet Reassemble.");
+                //console.log("Need Packet Reassemble.");
                 return null;
             }
         }
@@ -1196,11 +1196,11 @@ exports.decodeUplink = function(input) {
 
         //check WHDR header: source address
         if ((hexArr[0] & MASK_HEADER_ADDRESS_MODE) === MASK_HEADER_ADDRESS_NONE) {
-            console.log("No source address");
+            //console.log("No source address");
             arrayIndex++;
             message.SourceAddress = null;
         } else if ((hexArr[0] & MASK_HEADER_ADDRESS_MODE) === MASK_HEADER_ADDRESS_2_OCTECT) {
-            console.log("2 octects source address");
+            //console.log("2 octects source address");
             arrayIndex++;
             for (i = arrayIndex; i < (arrayIndex + 2); i++) {
                 sourceAddress = sourceAddress + addZero(hexArr[i].toString(16));
@@ -1208,7 +1208,7 @@ exports.decodeUplink = function(input) {
             message.SourceAddress = sourceAddress;
             arrayIndex += 2;
         } else if ((hexArr[0] & MASK_HEADER_ADDRESS_MODE) === MASK_HEADER_ADDRESS_8_OCTECT) {
-            console.log("8 octects source address");
+            //console.log("8 octects source address");
             arrayIndex++;
             for (i = arrayIndex; i < (arrayIndex + 8); i++) {
                 sourceAddress = sourceAddress + addZero(hexArr[i].toString(16));
@@ -1225,24 +1225,24 @@ exports.decodeUplink = function(input) {
         }
 
         if (calculateCRC != hexArr[hexArr.length - 1]) {
-            console.log("Frame CRC check failed.");
+            //console.log("Frame CRC check failed.");
             msg.payload = "Frame CRC check failed.";
             return msg;
         }
 
         //check if frame legnth is correct
         if (message.SourceAddress != null && !checkFrameLength()) {
-            console.log("Frame length error");
+            //console.log("Frame length error");
             msg.payload = "Frame length error";
             return msg;
         }
 
         // Parse Payload
-        console.log("Parse Payload");
+        //console.log("Parse Payload");
         parsePayLoad(arrayIndex);
     }
     catch (ex) {
-        console.log("Error: Parser failed. " + ex);
+        //console.log("Error: Parser failed. " + ex);
         msg.payload = "Error: Parser failed. " + ex;
         var output = [msg, null];
         if (typeof lostPacketInfo.LOG_INDEX != 'undefined') {
