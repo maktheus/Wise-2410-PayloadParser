@@ -1,13 +1,13 @@
-exports.decodeUplink = function(input) {
-    ////////////////////////////////////////////////////////////////////////////////
-    // Advantech, iSensing SW team
-    //
-    // Frame Data Parser for WISE Lora modules (execute in Node-RED)
-    //
-    // version: 1.6.12 <2022/07/05>
-    //
-    ////////////////////////////////////////////////////////////////////////////////
+exports.decodeUplink = function (input) {
+    const context = {};
 
+    context.set = function (key, value) {
+        this[key] = value;
+    };
+
+    context.get = function (key) {
+        return this[key];
+    };
 
     ///////////////////////////////////////
     // User defined variables
@@ -137,7 +137,7 @@ exports.decodeUplink = function(input) {
     ////////////////////////////////////////////
 
     //input data is hex string
-    var receivedString = input; // version 1
+    var receivedString = input;
 
     var version;
 
@@ -1150,10 +1150,14 @@ exports.decodeUplink = function(input) {
 
         // check frame structure version
         version = (hexArr[0] & MASK_HEADER_FRAME_VERSION);
-
+        console.log("Frame Version: " + version);
+        console.log("Frame Control: " + hexArr[0]);
+        
+        
         //check if this is first segment
         if (!(hexArr[0] & MASK_HEADER_FIRST_SEGMENT)) {
             // packet reassemble
+            console.log("Packet reassemble");
             var payloadStorage = JSON.parse(context.get('payloadStorage') || '{}');
 
             if (payloadStorage.sequence === hexArr[1]) {
@@ -1273,6 +1277,5 @@ exports.decodeUplink = function(input) {
     } else {
         node.warn(JSON.stringify(message, null, 4));
         node.warn(csvMessage);
-        return JSON.stringify(message, null, 4);
     }
 }

@@ -25,9 +25,10 @@ function main(){
     //mostra o tipo de resultado
     
     console.log(typeof output);
+    console.log(output);
 
     //cria um arquivo json com o resultado
-    saveStringAsJson(output);
+    // saveStringAsJson(output);
 }
 
 main()
