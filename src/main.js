@@ -23,8 +23,7 @@ function main(){
 
     var output = decodeUplink(input);
     //mostra o tipo de resultado
-    
-    console.log(typeof output);
+
     console.log(output);
 
     //cria um arquivo json com o resultado
