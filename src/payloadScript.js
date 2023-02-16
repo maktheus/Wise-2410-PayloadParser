@@ -145,6 +145,7 @@ exports.decodeUplink = function(input) {
     if (bIsRunNodeRed) {
         receivedString = msg.payload.data;
     } else {
+        console.log("receivedString: " + receivedString);
         var msg = {};
         msg.payload = '';
     }
@@ -1120,7 +1121,7 @@ exports.decodeUplink = function(input) {
             objData.time = new Date().getTime();
             objData.payload = hexArr;
 
-            context.set('payloadStorage', JSON.stringify(objData));
+            // context.set('payloadStorage', JSON.stringify(objData));
 
             return false;
         } else {
@@ -1176,7 +1177,7 @@ exports.decodeUplink = function(input) {
             hexArr = payloadStorage.payload.concat(hexArr.slice(2, hexArr.length));
 
             if (!checkPayloadLengthAndSetStorage(hexArr, currentSeq)) {
-                console.log("Need Packet Reassemble.");
+                console.log("Need Packet Reassemble. Drop this packet.");
                 return null;
             }
         } else {
@@ -1243,6 +1244,8 @@ exports.decodeUplink = function(input) {
     }
     catch (ex) {
         console.log("Error: Parser failed. " + ex);
+        //linha do erro
+        console.log(ex.stack);
         msg.payload = "Error: Parser failed. " + ex;
         var output = [msg, null];
         if (typeof lostPacketInfo.LOG_INDEX != 'undefined') {
@@ -1262,7 +1265,7 @@ exports.decodeUplink = function(input) {
         var output = [msg];
         if (csvMessage.length > 0) {
             output.push({ payload: csvMessage });
-
+            console.log(csvMessage);
             if (typeof lostPacketInfo.LOG_INDEX != 'undefined') {
                 output.push({ payload: JSON.stringify(lostPacketInfo) });
 
@@ -1270,7 +1273,8 @@ exports.decodeUplink = function(input) {
             }
         }
         return output;
-    } else {
+    } else {   
+        console.log(JSON.stringify(message, null, 4));  
         node.warn(JSON.stringify(message, null, 4));
         node.warn(csvMessage);
         return JSON.stringify(message, null, 4);

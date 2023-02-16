@@ -1,0 +1,17 @@
+{
+  "SequenceNumber": 136,
+  "TotalLength": 21,
+  "SourceAddress": null,
+  "TempHumi": {
+    "Range": 0,
+    "Status": 0,
+    "Event": 1,
+    "SenVal": 28312
+  },
+  "Device": {
+    "Events": 0,
+    "PowerSrc": 1,
+    "BatteryVolt": 0,
+    "Time": 1675695797
+  }
+}
